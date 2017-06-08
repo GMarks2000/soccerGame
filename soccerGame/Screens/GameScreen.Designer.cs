@@ -33,7 +33,6 @@
             this.timeLabel = new System.Windows.Forms.Label();
             this.redScoreLabel = new System.Windows.Forms.Label();
             this.blueScoreLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timer
@@ -75,21 +74,12 @@
             this.blueScoreLabel.TabIndex = 3;
             this.blueScoreLabel.Text = "0";
             // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(199, 687);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 10);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
-            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::soccerGame.Properties.Resources.soccerField;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.blueScoreLabel);
             this.Controls.Add(this.redScoreLabel);
             this.Controls.Add(this.timeLabel);
@@ -109,6 +99,5 @@
         private System.Windows.Forms.Label timeLabel;
         private System.Windows.Forms.Label redScoreLabel;
         private System.Windows.Forms.Label blueScoreLabel;
-        private System.Windows.Forms.Label label1;
     }
 }

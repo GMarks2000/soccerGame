@@ -63,6 +63,26 @@ namespace soccerGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Header {
+            get {
+                object obj = ResourceManager.GetObject("Header", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Header_clone {
+            get {
+                object obj = ResourceManager.GetObject("Header_clone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Net {
             get {
                 object obj = ResourceManager.GetObject("Net", resourceCulture);
@@ -76,6 +96,16 @@ namespace soccerGame.Properties {
         internal static System.Drawing.Bitmap soccerField {
             get {
                 object obj = ResourceManager.GetObject("soccerField", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap succer_bal {
+            get {
+                object obj = ResourceManager.GetObject("succer_bal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

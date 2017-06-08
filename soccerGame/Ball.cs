@@ -53,7 +53,6 @@ namespace soccerGame
             Rectangle bRect = new Rectangle(x, y, size, size);
 
             return (bRect.IntersectsWith(pRect));
-
         }
 
         //shoots ball at the angle and number of charge ticks given by the shooting player.
@@ -77,8 +76,19 @@ namespace soccerGame
             else return false;
         }
 
-        //checks for a goal
-        //public string CheckGoal(int startX, int endX, int startY, int endY, )
+        //checks for a goal and reports which net the goal was scored on
+        public string CheckGoal(int startX, int endX, int startY, int endY, int netWidth, int netHeight)
+        {
+            Rectangle leftNetRect = new Rectangle(startX - netWidth + 5, (endY - startY) / 2 - netHeight / 2 + 5, netWidth - 5,  netHeight - 5);
+            Rectangle rightNetRect = new Rectangle(endX - 5, (endY - startY) / 2 - netHeight / 2 - 5, netWidth - 5,  netHeight - 5);
+            Rectangle bRect = new Rectangle(x, y, size, size);
+
+            if (bRect.IntersectsWith(leftNetRect))
+                return "blue goal";
+            else if (bRect.IntersectsWith(rightNetRect))
+                return "red goal";
+            else return "no goal";
+        }
 
     }
 
