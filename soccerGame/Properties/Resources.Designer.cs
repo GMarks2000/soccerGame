@@ -83,6 +83,26 @@ namespace soccerGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LookAtThisNetThatI_veJustFound {
+            get {
+                object obj = ResourceManager.GetObject("LookAtThisNetThatI_veJustFound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LookAtThisNetThatI_veJustFound1 {
+            get {
+                object obj = ResourceManager.GetObject("LookAtThisNetThatI_veJustFound1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Net {
             get {
                 object obj = ResourceManager.GetObject("Net", resourceCulture);

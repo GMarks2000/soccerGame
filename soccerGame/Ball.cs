@@ -59,7 +59,7 @@ namespace soccerGame
         public void OnShot( int chargeTicks, double angle)
         {
             // total speed is related to shot strength
-            double speed = 6.5 + chargeTicks / 8;
+            double speed = 5 + chargeTicks / 3.5;
 
             if (angle == 0) { angle = 1; }
 

@@ -11,13 +11,20 @@ using System.Threading;
 
 namespace soccerGame.Screens
 {
-    public partial class GameScreen : UserControl
+    public partial class leftNet : UserControl
     {
         #region global variables
         //keypress bools
         Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, jDown, lDown, spaceDown, escapeDown, aDown, sDown, dDown, wDown, qDown, eDown, enterDown;
 
         int playerWidth, playerLength, ballSize, ticksSinceShot, ticks, timeLeft, startX, endX, startY, endY, netWidth, netHeight, redScore, blueScore;
+
+        private void GameScreen_Load(object sender, EventArgs e)
+        {
+            Form f = this.FindForm();
+            this.Location = new Point((f.Width - this.Width) / 2, (f.Height - this.Height) / 2);
+            Countdown(5);
+        }
 
         string lastTouch = "";
 
@@ -39,10 +46,11 @@ namespace soccerGame.Screens
         List<Goalkeeper> goalkeepers = new List<Goalkeeper>();
         #endregion
         
-        public GameScreen()
+        public leftNet()
         {
             InitializeComponent();
             OnStart();
+            this.Focus();
         }
 
         //start method
@@ -50,6 +58,7 @@ namespace soccerGame.Screens
         {
             this.Focus();
 
+            //sets numeric variables
             playerLength = 12;
             playerWidth = 24;
             ballSize = 10;
@@ -57,11 +66,11 @@ namespace soccerGame.Screens
             ticks = 0;
             timeLeft = 300;
 
+            //net and boundary variables-- adjust as necessary
             startX = 125;
             startY = 14;
             endX = 1175;
             endY = 687;
-
             netWidth = 36;
             netHeight = 90;
 
@@ -81,8 +90,11 @@ namespace soccerGame.Screens
             goalkeepers.Add(g1);
             goalkeepers.Add(g2);
 
-
+            //constructs ball
             b = new Ball(this.Width / 2, this.Height / 2, ballSize, -1, -1, 0.2, true);
+
+            
+
         }
 
         #region key methods
@@ -161,7 +173,7 @@ namespace soccerGame.Screens
                     break;
                 case Keys.Escape:
                     escapeDown = true;
-                    handlePause();
+                    HandlePause();
                     break;
                 case Keys.K:
                     enterDown = true;
@@ -226,6 +238,9 @@ namespace soccerGame.Screens
                 p2.Accelerate("none", "none");
             }
 
+            if (p1.hasBall || p2.hasBall || g1.hasBall || g2.hasBall)
+                b.isFree = false;
+
             //goalie code
             foreach (Goalkeeper g in goalkeepers)
             {   
@@ -237,7 +252,7 @@ namespace soccerGame.Screens
                 if (g.checkCollision(b) && g.ticksSinceLost >= 5)
                 {   
                     //goalie deflects or acquires ball depending on its speed
-                    if (Math.Sqrt(b.xSpeed * b.xSpeed + b.ySpeed * b.ySpeed) > 8)
+                    if (Math.Sqrt(b.xSpeed * b.xSpeed + b.ySpeed * b.ySpeed) > 7)
                     {
                         b.xSpeed *= -1;
                         g.ticksSinceLost = 0;
@@ -271,7 +286,7 @@ namespace soccerGame.Screens
                 if (g.ticksSinceGot >= 50 && g.hasBall)
                 {
                     Random rand = new Random();
-                    int a = rand.Next(80, 111);
+                    int a = rand.Next(30, 50);
                     int d = rand.Next(0, 21);
                     int c = rand.Next(0, 2);
 
@@ -312,8 +327,8 @@ namespace soccerGame.Screens
                     ticksSinceShot++;
 
 
-                //releases a shot ball when space is released or when 180 frames of charge are built up.
-                if ((p.actionKeyDown  == false && p.hasBall && ticksSinceShot > 0) || (p.hasBall && ticksSinceShot >= 60))
+                //releases a shot ball when space is released or when 60 frames of charge are built up.
+                if ((p.actionKeyDown  == false && p.hasBall && ticksSinceShot > 0) || (p.hasBall && ticksSinceShot >= 30))
                 {
                     p.hasBall = false;
                     b.isFree = true;
@@ -362,7 +377,7 @@ namespace soccerGame.Screens
                 }
 
                 p1.hasBall = true;
-                lastTouch = "red";
+                lastTouch = "RED";
             }
 
             if (b.CheckPlayer(p2) && p2.ticksSinceLost >= 10 && p2.hasBall == false)
@@ -375,23 +390,25 @@ namespace soccerGame.Screens
                     p1.ticksSinceLost = 0;
                 }
                 p2.hasBall = true;
-                lastTouch = "blue";
+                lastTouch = "BLUE";
             }
 
             //offscreen ball detection (ball given to opponent of last toucher)
             if (b.CheckOOB(startX, endX , startY, endY)  && b.CheckGoal(startX, endX, startY, endY, netWidth, netHeight) == "no goal")
             {
-                if (lastTouch == "red")
+                Output("OUT OF BOUNDS " + lastTouch + " !");
+
+                if (lastTouch == "RED")
                 {
                     p2.hasBall = true;
                     p1.hasBall = false;
-                    lastTouch = "blue";
+                    lastTouch = "BLUE";
                 }
-                else if (lastTouch == "blue")
+                else if (lastTouch == "BLUE")
                 {
                     p1.hasBall = true;
                     p2.hasBall = false;
-                    lastTouch = "red";
+                    lastTouch = "RED";
                 }
                 p1.x = this.Width / 4;
                 p1.y = this.Height / 2;
@@ -404,8 +421,11 @@ namespace soccerGame.Screens
 
                 p1.xSpeed = p1.ySpeed = p2.xSpeed = p2.ySpeed = 1;
 
+               
                 Refresh();
                 Thread.Sleep(2000);
+
+                Countdown(3);
             }
 
             //checks for  goal
@@ -415,7 +435,8 @@ namespace soccerGame.Screens
                 if (b.CheckGoal(startX, endX, startY, endY, netWidth, netHeight) == "red goal")
                 {
                     redScore++;
-                    redScoreLabel.Text = redScore.ToString();                  
+                    redScoreLabel.Text = redScore.ToString();
+                    Output("RED GOAL!");                  
                 }
 
                 //blue goal
@@ -423,23 +444,34 @@ namespace soccerGame.Screens
                 {
                     blueScore++;
                     blueScoreLabel.Text = blueScore.ToString();
+                    Output("BLUE GOAL!");
                 }
 
-                reset();
+                Refresh();
+                Thread.Sleep(2000);
+                Output("");
+
+                Reset();
             }
             
             
             //updates game timer
             ticks++;
-            if (ticks % 16 == 0)
-            {
+            if (ticks % 16 == 0 && isSuddenDeath == false)
+            {   
+                //inserts start zeros for fewer digits to maintain space use
                 timeLeft--;
-                timeLabel.Text = timeLeft.ToString();
+                if (timeLeft < 10)
+                    timeLabel.Text = "00" + timeLeft.ToString();
+                else if (timeLeft < 100)
+                    timeLabel.Text = "0" + timeLeft.ToString();
+                else
+                    timeLabel.Text = timeLeft.ToString();
             }
 
             if (timeLeft == 0)
             {
-                gameOver();
+                GameOver();
             }
 
                 Refresh();
@@ -477,7 +509,7 @@ namespace soccerGame.Screens
                 if (p.actionKeyDown  && p.hasBall)
                 {
                     drawBrush.Color = Color.Orange;
-                    e.Graphics.FillRectangle(drawBrush, p.x, p.y + playerLength + 10, Convert.ToInt16(playerWidth * ticksSinceShot / 60), 8);
+                    e.Graphics.FillRectangle(drawBrush, p.x, p.y + playerLength + 10, Convert.ToInt16(playerWidth * ticksSinceShot / 30), 8);
                     e.Graphics.DrawRectangle(drawPen, p.x, p.y + playerLength + 10, playerWidth, 8);
                 }
 
@@ -506,16 +538,16 @@ namespace soccerGame.Screens
                     e.Graphics.FillPie(drawBrush, 0 - (playerLength - 1) / 2, 0 - (playerLength - 1) / 2, playerLength - 1, playerLength - 1, 0, 180);
 
                     //reset to original origin point
-                    e.Graphics.ResetTransform();
-                
+                    e.Graphics.ResetTransform();               
                 
             }
 
             //ball drawing
             drawBrush.Color = Color.White;
+            drawPen.Color = Color.Black;
             e.Graphics.FillEllipse(drawBrush, b.x, b.y, ballSize, ballSize);
             e.Graphics.DrawEllipse(drawPen, b.x, b.y, ballSize, ballSize);
-
+            
             
         }
         #region accel methods
@@ -557,7 +589,7 @@ namespace soccerGame.Screens
         #endregion
         #region assorted methods
         //opens the pause screen on a button click
-        public void handlePause()
+        public void HandlePause()
         {
             timer.Enabled = false;
 
@@ -585,7 +617,7 @@ namespace soccerGame.Screens
         }
 
         //what to do when game timer runs out
-        public void gameOver()
+        public void GameOver()
         {
             if (redScore > blueScore)
             {
@@ -599,12 +631,12 @@ namespace soccerGame.Screens
             {
                 isSuddenDeath = true;
                 timeLabel.Text = "000";
-                reset();
+                Reset();
             }
         }
 
         //resets player and ball positions
-        public void reset()
+        public void Reset()
         {
             //resets player positions, ball positions, and speeds
             p1.x = this.Width / 4;
@@ -623,11 +655,29 @@ namespace soccerGame.Screens
 
             b.xSpeed = b.ySpeed = -1;
 
-            Refresh();
-            timer.Start();
-            Thread.Sleep(2000);
+            g1.y = g2.y = this.Height / 2;
+
+            Countdown(3);
         }
         
+        //pushes a message to the screen
+        public void Output(string msg)
+        {
+            outputLabel.Text = msg;
+            outputLabel.Location = new Point(this.Width / 2 - outputLabel.Width / 2, this.Height / 2 - outputLabel.Height / 2);
+        }
+
+        //plays a  countdown for the desired number of seconds before resuming game
+        public void Countdown(int seconds)
+        {
+            for (int i = seconds; i > 0; i--)
+            {
+                Output(i.ToString());
+                Refresh();
+                Thread.Sleep(1000);
+            }
+            Output("");
+        }
         #endregion
     }
 }

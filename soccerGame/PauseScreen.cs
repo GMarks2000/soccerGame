@@ -51,6 +51,10 @@ namespace soccerGame
         {
             switch (e.KeyCode)
             {
+                case Keys.Escape:
+                    result = DialogResult.Yes;
+                    this.Close();
+                    break;
 
             }
         }
