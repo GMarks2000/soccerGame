@@ -14,9 +14,9 @@ namespace soccerGame
         public int x, y, width, length, ticksSinceLost, tackleTicks; 
         public double xSpeed, ySpeed, acceleration, deceleration, angle, maxSpeed;
         public Color color;
-        public bool hasBall, actionKeyDown;
+        public bool hasBall, actionKeyDown, hasReset;
 
-        public Player(int _x, int _y, double _xSpeed, double _ySpeed, double _acceleration, double _deceleration, double _angle, double _maxSpeed, int _width, int _length, int _ticksSinceLost, int _tackleTicks, bool _hasBall, Color _color, bool _actionKeyDown)
+        public Player(int _x, int _y, double _xSpeed, double _ySpeed, double _acceleration, double _deceleration, double _angle, double _maxSpeed, int _width, int _length, int _ticksSinceLost, int _tackleTicks, bool _hasBall, Color _color, bool _actionKeyDown, bool _hasReset)
         {
             x = _x;
             y = _y;
@@ -33,6 +33,7 @@ namespace soccerGame
             ticksSinceLost = _ticksSinceLost;
             tackleTicks = _tackleTicks;
             actionKeyDown = _actionKeyDown;
+            hasReset = _hasReset;
         }
         #region movement methods
         //moves player 
@@ -92,6 +93,7 @@ namespace soccerGame
                         break;
                     }           
                 }
+
             if (Math.Sqrt(xSpeed * xSpeed + ySpeed * ySpeed) <= maxSpeed || directionY != yDir)
             {
                 switch (directionY)
@@ -120,10 +122,10 @@ namespace soccerGame
             switch (direction)
             {
                 case "left":
-                    angle -= 5;
+                    angle -= 10;
                     break;
                 case "right":
-                    angle += 5;
+                    angle += 10;
                     break;
             }          
         } 

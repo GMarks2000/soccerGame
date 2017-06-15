@@ -137,6 +137,7 @@
             this.recordsButton.TabIndex = 7;
             this.recordsButton.Text = "RECORDS";
             this.recordsButton.UseVisualStyleBackColor = false;
+            this.recordsButton.Click += new System.EventHandler(this.recordsButton_Click);
             // 
             // MenuScreen
             // 
@@ -151,8 +152,10 @@
             this.Controls.Add(this.playButton);
             this.Controls.Add(this.soccerBox);
             this.Controls.Add(this.manoBox);
+            this.DoubleBuffered = true;
             this.Name = "MenuScreen";
             this.Size = new System.Drawing.Size(1300, 700);
+            this.Load += new System.EventHandler(this.MenuScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.manoBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.soccerBox)).EndInit();
             this.ResumeLayout(false);

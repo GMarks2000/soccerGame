@@ -39,7 +39,7 @@ namespace soccerGame
         public bool checkCollision(Ball b)
         {
             Rectangle bRect = new Rectangle(b.x, b.y, b.size, b.size);
-            Rectangle gRect = new Rectangle(x, y, width, length);
+            Rectangle gRect = new Rectangle(x, y, length, width);
 
             return bRect.IntersectsWith(gRect);
         }

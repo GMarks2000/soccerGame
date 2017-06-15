@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +45,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ball.cs" />
@@ -61,6 +63,11 @@
       <DependentUpon>PauseScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Player.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Screens\GameScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -75,6 +82,12 @@
     <Compile Include="Screens\MenuScreen.Designer.cs">
       <DependentUpon>MenuScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Screens\RecordScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Screens\RecordScreen.Designer.cs">
+      <DependentUpon>RecordScreen.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,16 +99,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Screens\MenuScreen.resx">
       <DependentUpon>MenuScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screens\RecordScreen.resx">
+      <DependentUpon>RecordScreen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -130,6 +141,192 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LookAtThisNetThatI%27veJustFound1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grass2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Header clone 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\soccer ball.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HappyCrowd.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BooCrowd.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Applause.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kick.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Buzzer.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Air Horn.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gradient.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grey hc bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\greyrect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gun.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gun2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gun3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hand raise.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\harmful bact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hive bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hmmmm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hot bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hot spring.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hydr vent.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hydrothermal vent.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_2907 %281%29.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_2907.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ISU planning_ idea generation.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\le gud le badd and le maymay.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\le histo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\life exp B&amp;W.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\life no outls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lying.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Map Of Multiverse.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\net.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\netThatIveJustFound.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\network.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\n-flute.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no money.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\oh god why.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\phage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pigz.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plague bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gradient1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\netThatIveJustFound1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pigz1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plague bg1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Map Of Multiverse1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\n-flute1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\network1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no money1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\oh god why1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\phage1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pigz2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plague bg2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Goalie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Player 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Player 2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

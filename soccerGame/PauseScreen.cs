@@ -23,11 +23,7 @@ namespace soccerGame
         public static DialogResult Show(string Text, string btnYes, string btnNo, Form f)
         {
             pause = new PauseScreen();
-            /*
-            pause.titleLabel.Text = Text;
-            pause.yesLabel.Text = btnYes;
-            pause.noLabel.Text = btnNo;
-            */
+
             pause.Location = new Point((f.Width - pause.Width) / 2, (f.Height - pause.Height) / 2);
 
             pause.ShowDialog();
@@ -55,7 +51,6 @@ namespace soccerGame
                     result = DialogResult.Yes;
                     this.Close();
                     break;
-
             }
         }
     }

@@ -15,6 +15,8 @@ namespace soccerGame.Screens
         public MenuScreen()
         {
             InitializeComponent();
+            
+
             manoLabel.Parent = manoBox;
             soccerLabel.Parent = soccerBox;
 
@@ -28,7 +30,7 @@ namespace soccerGame.Screens
             Form f = this.FindForm();
             f.Controls.Remove(this);
 
-            leftNet gs = new leftNet();
+            GameScreen  gs = new GameScreen();
             f.Controls.Add(gs);
             gs.Location = new Point((f.Width - gs.Width) / 2, (f.Height - gs.Height) / 2);
             gs.Focus();
@@ -38,6 +40,24 @@ namespace soccerGame.Screens
         private void quitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void MenuScreen_Load(object sender, EventArgs e)
+        {
+            Form f = this.FindForm();
+            this.Location = new Point((f.Width - this.Width) / 2, (f.Height - this.Height) / 2);
+        }
+
+        //opens records screen
+        private void recordsButton_Click(object sender, EventArgs e)
+        {
+            Form f = this.FindForm();
+            f.Controls.Remove(this);
+
+            RecordScreen rs = new RecordScreen();
+            f.Controls.Add(rs);
+            rs.Location = new Point((f.Width - rs.Width) / 2, (f.Height - rs.Height) / 2);
+            rs.Focus();
         }
     }
 }

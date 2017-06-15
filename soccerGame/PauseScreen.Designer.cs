@@ -53,6 +53,7 @@
             this.resumeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
             this.resumeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resumeButton.Font = new System.Drawing.Font("Eras Bold ITC", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resumeButton.ForeColor = System.Drawing.Color.White;
             this.resumeButton.Location = new System.Drawing.Point(175, 144);
             this.resumeButton.Name = "resumeButton";
             this.resumeButton.Size = new System.Drawing.Size(250, 75);
@@ -70,6 +71,7 @@
             this.quitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
             this.quitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quitButton.Font = new System.Drawing.Font("Eras Bold ITC", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quitButton.ForeColor = System.Drawing.Color.White;
             this.quitButton.Location = new System.Drawing.Point(175, 249);
             this.quitButton.Name = "quitButton";
             this.quitButton.Size = new System.Drawing.Size(250, 75);
@@ -89,6 +91,7 @@
             this.Controls.Add(this.titleLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PauseScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PauseScreen_PreviewKeyDown);
             this.ResumeLayout(false);

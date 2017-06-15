@@ -9,12 +9,13 @@ namespace soccerGame
 {
     class Ball
     {
-        public int x, y, size;
+        public int x, y, size, angle;
+        public Point lastPoint;
         public double xSpeed, ySpeed, deceleration;
         public bool isFree;
 
 
-        public Ball (int _x, int _y, int _size, double _xSpeed, double _ySpeed, double _deceleration, bool _isFree)
+        public Ball (int _x, int _y, int _size, double _xSpeed, double _ySpeed, double _deceleration, int _angle, Point _lastPoint, bool _isFree)
         {
             x = _x;
             y = _y;
@@ -23,6 +24,8 @@ namespace soccerGame
             ySpeed = _ySpeed;
             deceleration = _deceleration;
             isFree = _isFree;
+            angle = _angle;
+            lastPoint = _lastPoint;
         }
 
         //method to move ball
@@ -88,6 +91,21 @@ namespace soccerGame
             else if (bRect.IntersectsWith(rightNetRect))
                 return "red goal";
             else return "no goal";
+        }
+
+        //checks whether to rotate the ball to imitate rolling
+        public void CheckRotation()
+        {
+            if (Math.Sqrt(Math.Pow(x - lastPoint.X, 2) + Math.Pow(y - lastPoint.Y, 2)) > 10)
+            {   
+                //updates angle
+                angle += 45;
+                if (angle >= 360) { angle -= 360; }
+
+                //resets last point
+                lastPoint = new Point(x, y);
+            }
+            
         }
 
     }
