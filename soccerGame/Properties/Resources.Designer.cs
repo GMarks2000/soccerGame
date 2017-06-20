@@ -97,6 +97,26 @@ namespace soccerGame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] CrowdAmbient {
+            get {
+                object obj = ResourceManager.GetObject("CrowdAmbient", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] crowdMp3 {
+            get {
+                object obj = ResourceManager.GetObject("crowdMp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Goalie {
@@ -241,6 +261,15 @@ namespace soccerGame.Properties {
             get {
                 object obj = ResourceManager.GetObject("succer_bal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Whistle {
+            get {
+                return ResourceManager.GetStream("Whistle", resourceCulture);
             }
         }
     }

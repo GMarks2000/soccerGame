@@ -41,6 +41,8 @@
             this.upButton = new System.Windows.Forms.Button();
             this.downButton = new System.Windows.Forms.Button();
             this.returnButton = new System.Windows.Forms.Button();
+            this.redWinsLabel = new System.Windows.Forms.Label();
+            this.blueWinsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.redBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueBox)).BeginInit();
             this.SuspendLayout();
@@ -179,11 +181,11 @@
             this.upButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.upButton.Font = new System.Drawing.Font("Eras Bold ITC", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.upButton.ForeColor = System.Drawing.Color.White;
-            this.upButton.Location = new System.Drawing.Point(507, 533);
+            this.upButton.Location = new System.Drawing.Point(661, 566);
             this.upButton.Name = "upButton";
-            this.upButton.Size = new System.Drawing.Size(250, 75);
-            this.upButton.TabIndex = 14;
-            this.upButton.Text = "UP";
+            this.upButton.Size = new System.Drawing.Size(76, 81);
+            this.upButton.TabIndex = 2;
+            this.upButton.Text = "▲";
             this.upButton.UseVisualStyleBackColor = false;
             this.upButton.Click += new System.EventHandler(this.upButton_Click);
             // 
@@ -197,11 +199,11 @@
             this.downButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.downButton.Font = new System.Drawing.Font("Eras Bold ITC", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downButton.ForeColor = System.Drawing.Color.White;
-            this.downButton.Location = new System.Drawing.Point(507, 614);
+            this.downButton.Location = new System.Drawing.Point(531, 566);
             this.downButton.Name = "downButton";
-            this.downButton.Size = new System.Drawing.Size(250, 75);
-            this.downButton.TabIndex = 15;
-            this.downButton.Text = "DOWN";
+            this.downButton.Size = new System.Drawing.Size(76, 81);
+            this.downButton.TabIndex = 1;
+            this.downButton.Text = "▼";
             this.downButton.UseVisualStyleBackColor = false;
             this.downButton.Click += new System.EventHandler(this.downButton_Click);
             // 
@@ -218,10 +220,36 @@
             this.returnButton.Location = new System.Drawing.Point(1036, 614);
             this.returnButton.Name = "returnButton";
             this.returnButton.Size = new System.Drawing.Size(250, 75);
-            this.returnButton.TabIndex = 16;
+            this.returnButton.TabIndex = 3;
             this.returnButton.Text = "BACK";
             this.returnButton.UseVisualStyleBackColor = false;
             this.returnButton.Click += new System.EventHandler(this.returnButton_Click);
+            // 
+            // redWinsLabel
+            // 
+            this.redWinsLabel.BackColor = System.Drawing.Color.ForestGreen;
+            this.redWinsLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.redWinsLabel.Font = new System.Drawing.Font("Eras Bold ITC", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.redWinsLabel.ForeColor = System.Drawing.Color.White;
+            this.redWinsLabel.Location = new System.Drawing.Point(3, 285);
+            this.redWinsLabel.Name = "redWinsLabel";
+            this.redWinsLabel.Size = new System.Drawing.Size(276, 94);
+            this.redWinsLabel.TabIndex = 17;
+            this.redWinsLabel.Text = "0";
+            this.redWinsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // blueWinsLabel
+            // 
+            this.blueWinsLabel.BackColor = System.Drawing.Color.ForestGreen;
+            this.blueWinsLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.blueWinsLabel.Font = new System.Drawing.Font("Eras Bold ITC", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blueWinsLabel.ForeColor = System.Drawing.Color.White;
+            this.blueWinsLabel.Location = new System.Drawing.Point(967, 285);
+            this.blueWinsLabel.Name = "blueWinsLabel";
+            this.blueWinsLabel.Size = new System.Drawing.Size(276, 94);
+            this.blueWinsLabel.TabIndex = 18;
+            this.blueWinsLabel.Text = "0";
+            this.blueWinsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RecordScreen
             // 
@@ -229,6 +257,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::soccerGame.Properties.Resources.Grass2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.blueWinsLabel);
+            this.Controls.Add(this.redWinsLabel);
             this.Controls.Add(this.returnButton);
             this.Controls.Add(this.downButton);
             this.Controls.Add(this.upButton);
@@ -267,5 +297,7 @@
         private System.Windows.Forms.Button upButton;
         private System.Windows.Forms.Button downButton;
         private System.Windows.Forms.Button returnButton;
+        private System.Windows.Forms.Label redWinsLabel;
+        private System.Windows.Forms.Label blueWinsLabel;
     }
 }

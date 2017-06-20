@@ -37,22 +37,37 @@ namespace soccerGame
         }
         #region movement methods
         //moves player 
-        public void Move(/*UserControl u*/)
+        public void Move(int minX, int maxX, int minY, int maxY, int creaseStart, int creaseEnd, int creaseWidth)
         {
             //determines x and y direction so that acceleration can occur only in the direction opposite a max speed ball
             
                 x = Convert.ToInt16(x + xSpeed);                        
                 y = Convert.ToInt16(y + ySpeed);
-            /*
-            if (x < 0)
-                x = 0;
-            if (x + width > u.Width) 
-                x = u.Width - width;
-            if (y < 0)
-                y = 0;
-            if (y + width > u.Height)
-                y = u.Height - width;
-                */
+
+            //prevents boundary crossing
+            if (x < minX || (y + length > creaseStart && y  < creaseEnd && x < minX + creaseWidth))
+            {
+                x = Convert.ToInt16(x + Math.Abs(xSpeed));
+                xSpeed = 1;
+            }
+
+            else if (x + width > maxX || (y > creaseStart && y < creaseEnd && x + width > maxX - creaseWidth))
+            {
+                x = Convert.ToInt16(x - Math.Abs(xSpeed));
+                xSpeed = -1;
+            }
+
+            else if (y < minY || (x < minX + creaseWidth && y + length > creaseEnd && y + length < creaseStart) || (x + width > maxX - creaseWidth && y + length < creaseEnd && y + length > creaseStart))
+            {
+                y = Convert.ToInt16(y + Math.Abs(ySpeed));
+                ySpeed = 1;
+            }
+
+            else if (y + length > maxY || (x < minX + creaseWidth && y + length < creaseStart && y + length > creaseEnd) || (x + width > maxX - creaseWidth && y + length > creaseStart && y + length < creaseEnd))
+            {
+                y = Convert.ToInt16(y - Math.Abs(ySpeed));
+                ySpeed = -1;
+            }
         } 
 
         //accelerates player
@@ -131,15 +146,23 @@ namespace soccerGame
         } 
         
         //bursts player forwards quickly
-        public void startTackle()
+        public void StartTackle()
         {
-            int speed = 12;
+            int speed = 15;
 
             xSpeed = Math.Sin(angle * Math.PI / 180) * speed;
             ySpeed = -Math.Cos(angle * Math.PI / 180) * speed;
 
             tackleTicks++;
-        }   
+        } 
+         //checks for a player-on-player collision. Note that player rectangles are treated as being all of their possible rotation states.
+        public bool PlayerCollision (Player p)
+        {
+            Rectangle p1 = new Rectangle(x + 1, y + 1, width - 1, width - 1);
+            Rectangle p2 = new Rectangle(p.x + 1, p.y + 1, p.width - 1, p.width - 1);
+
+            return p1.IntersectsWith(p2);
+        }
        #endregion
     }
 }

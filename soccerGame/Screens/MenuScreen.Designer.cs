@@ -74,7 +74,7 @@
             this.playButton.Location = new System.Drawing.Point(166, 351);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(250, 75);
-            this.playButton.TabIndex = 3;
+            this.playButton.TabIndex = 1;
             this.playButton.Text = "PLAY";
             this.playButton.UseVisualStyleBackColor = false;
             this.playButton.Click += new System.EventHandler(this.playButton_Click_1);
@@ -116,7 +116,7 @@
             this.quitButton.Location = new System.Drawing.Point(403, 539);
             this.quitButton.Name = "quitButton";
             this.quitButton.Size = new System.Drawing.Size(250, 75);
-            this.quitButton.TabIndex = 6;
+            this.quitButton.TabIndex = 3;
             this.quitButton.Text = "QUIT";
             this.quitButton.UseVisualStyleBackColor = false;
             this.quitButton.Click += new System.EventHandler(this.quitButton_Click);
@@ -134,7 +134,7 @@
             this.recordsButton.Location = new System.Drawing.Point(284, 445);
             this.recordsButton.Name = "recordsButton";
             this.recordsButton.Size = new System.Drawing.Size(250, 75);
-            this.recordsButton.TabIndex = 7;
+            this.recordsButton.TabIndex = 2;
             this.recordsButton.Text = "RECORDS";
             this.recordsButton.UseVisualStyleBackColor = false;
             this.recordsButton.Click += new System.EventHandler(this.recordsButton_Click);

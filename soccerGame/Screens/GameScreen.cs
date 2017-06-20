@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Xml;
+using System.Diagnostics;
+using System.Media;
+using System.IO;
 
 namespace soccerGame.Screens
 {
@@ -16,9 +19,9 @@ namespace soccerGame.Screens
     {
         #region global variables
         //keypress bools
-        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, jDown, lDown, spaceDown, escapeDown, aDown, sDown, dDown, wDown, qDown, eDown, enterDown;
+        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, jDown, lDown, spaceDown, escapeDown, aDown, sDown, dDown, wDown, qDown, eDown, enterDown, musicStarted;
 
-        int playerWidth, playerLength, ballSize, ticksSinceShot, ticks, timeLeft, startX, endX, startY, endY, netWidth, netHeight, redScore, blueScore;
+        int playerWidth, playerLength, ballSize, ticksSinceShot, ticks, timeLeft, startX, endX, startY, endY, netWidth, netHeight, creaseStartY, creaseEndY, creaseWidth, redScore, blueScore;
 
         private void GameScreen_Load(object sender, EventArgs e)
         {
@@ -45,6 +48,9 @@ namespace soccerGame.Screens
         //goalie declarations
         Goalkeeper g1, g2;
         List<Goalkeeper> goalkeepers = new List<Goalkeeper>();
+
+
+        Stopwatch musicWatch;
         #endregion
         
         public GameScreen()
@@ -75,11 +81,17 @@ namespace soccerGame.Screens
             netWidth = 36;
             netHeight = 90;
 
+            creaseStartY = 239;
+            creaseEndY = 461;
+            creaseWidth = 68;
+
+
             redScore = 0;
 
             blueScore = 0;
 
             isSuddenDeath = false;
+            musicStarted = false;
 
             //player construtions
             p1 = new Player(this.Width / 4, this.Height / 2 - 2, 0, 0, 0.3, 0.85, 90, 5, playerWidth, playerLength, 30, 0, false, Color.Red, false, true);
@@ -96,10 +108,12 @@ namespace soccerGame.Screens
             //constructs ball
             b = new Ball(this.Width / 2, this.Height / 2, ballSize, -1, -1, 0.2, 0, new Point(this.Width / 2, this.Height / 2), true);
 
+            musicWatch = new Stopwatch();
+            musicWatch.Start();
 
             //loads sounds into appropriate mediaplayers
             Form1.airHorn = new System.Windows.Media.MediaPlayer();
-            Form1.airHorn.Open(new Uri(Application.StartupPath + "/Resources/Air_Horn.wav"));
+            Form1.airHorn.Open(new Uri(Application.StartupPath + "/Resources/Air Horn.wav"));
 
             Form1.applause = new System.Windows.Media.MediaPlayer();
             Form1.applause.Open(new Uri(Application.StartupPath + "/Resources/Applause.wav"));
@@ -116,6 +130,9 @@ namespace soccerGame.Screens
             Form1.kick = new System.Windows.Media.MediaPlayer();
             Form1.kick.Open(new Uri(Application.StartupPath + "/Resources/Kick.wav"));
 
+            Form1.ambient = new System.Windows.Media.MediaPlayer();
+            //Form1.ambient.Open(new Uri(Application.StartupPath + "/Resources/CrowdAmbient.wav"));
+            Form1.ambient.Open(new System.Uri(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "crowdMp3.mp3")));
         }
 
         #region key methods
@@ -231,7 +248,14 @@ namespace soccerGame.Screens
 
         //tick method
         private void timer_Tick(object sender, EventArgs e)
-        {
+        {   
+            //first tick music start
+            if (musicStarted == false)
+            {
+                Form1.ambient.Play();
+                musicStarted = true;
+            }
+
             //action key logic
             if (spaceDown)
             {
@@ -282,7 +306,7 @@ namespace soccerGame.Screens
                     g.Move(b, (endY - startY) / 2 + netHeight / 2, (endY - startY) / 2 - netHeight / 2);
 
                 //collision with ball
-                if (g.checkCollision(b) && g.ticksSinceLost >= 5)
+                if (g.CheckCollision(b) && g.ticksSinceLost >= 5)
                 {   
                     //goalie deflects or acquires ball depending on its speed
                     if (Math.Sqrt(b.xSpeed * b.xSpeed + b.ySpeed * b.ySpeed) > 7)
@@ -340,7 +364,7 @@ namespace soccerGame.Screens
             //assorted code for each player
             foreach (Player p in players)
             {
-                p.Move();
+                p.Move(startX, endX, startY, endY, creaseStartY, creaseEndY, creaseWidth);
 
                 //places ball in front of posessive player
                 if (p.hasBall)
@@ -385,7 +409,7 @@ namespace soccerGame.Screens
                 //tackle code
                 if (p.actionKeyDown && p.hasBall == false && p.tackleTicks == 0 && p.hasReset)
                 {
-                    p.startTackle();
+                    p.StartTackle();
                     p.hasReset = false;
                 }
 
@@ -399,7 +423,35 @@ namespace soccerGame.Screens
                     }
                 }
             }
-            //checkpoint
+            
+
+            //player collisions// prevents overlap and puts in some interesting collision dynamics
+
+            if (p1.PlayerCollision(p2))
+            {
+                int changeBy = 3;
+
+                if (p1.x > p2.x)
+                {
+                    p1.x += changeBy;
+                    p2.x -= changeBy;
+                }
+                else
+                {
+                    p1.x -= changeBy;
+                    p2.x += changeBy;
+                }
+                if (p1.y > p2.y)
+                {
+                    p1.y += changeBy;
+                    p2.y -= changeBy;
+                }
+                else
+                {
+                    p1.y -= changeBy;
+                    p2.y += changeBy;
+                }
+            }
 
             //ball movement
             if (b.isFree)
@@ -437,6 +489,9 @@ namespace soccerGame.Screens
             }
 
             b.CheckRotation();
+
+            //randomly determines whether to play the airhorn sound on a given frame
+            PlayAirhorn();
 
             //offscreen ball detection (ball given to opponent of last toucher)
             if (b.CheckOOB(startX, endX , startY, endY)  && b.CheckGoal(startX, endX, startY, endY, netWidth, netHeight) == "no goal")
@@ -498,7 +553,11 @@ namespace soccerGame.Screens
                         blueScoreLabel.Text = blueScore.ToString();
                         Output("BLUE GOAL!");
                     }
-                   
+
+                    //plays cheering
+                    Form1.cheer.Stop();
+                    Form1.cheer.Play();
+
                     Refresh();
                     Thread.Sleep(2000);
                     Output("");
@@ -519,13 +578,19 @@ namespace soccerGame.Screens
                         blueScore++;
                         EndGame("BLUE");
                     }
-                }
-
-                //plays cheering
-                Form1.cheer.Stop();
-                Form1.cheer.Play();
+                }             
             }          
-                        
+             
+            //ambient game sound looping
+            if (musicWatch.ElapsedMilliseconds / 1000 > 38)
+            {
+                musicWatch.Stop();
+                Form1.ambient.Stop();
+                Form1.ambient.Play();
+                musicWatch.Reset();
+                musicWatch.Start();
+            }
+                       
             //updates game timer
             ticks++;
             if (ticks % 16 == 0 && isSuddenDeath == false)
@@ -562,22 +627,7 @@ namespace soccerGame.Screens
 
                 //rotate by the given angle for the player
                 e.Graphics.RotateTransform(a);
-
-                // draw the player in the middle of the rotated origin point
-                /*
-                e.Graphics.FillEllipse(drawBrush, 0 - playerWidth / 2, 0 - playerLength / 2, playerWidth, playerLength);
-
-                drawBrush.Color = Color.Beige;
-                e.Graphics.FillEllipse(drawBrush, 0 - (playerLength - 1) / 2, 0 - (playerLength - 1) / 2, playerLength - 1, playerLength - 1);
-
-                drawBrush.Color = Color.Yellow;
-                e.Graphics.FillPie(drawBrush, 0 - (playerLength - 1) / 2, 0 - (playerLength - 1) / 2, playerLength - 1, playerLength - 1, 0, 180);
-
-                //eyes
-                drawBrush.Color = Color.Black;
-                e.Graphics.FillRectangle(drawBrush, 0 - (playerLength - 1) / 2 + 7, 0 - (playerLength - 1) / 2 + 2, 1, 2);
-                e.Graphics.FillRectangle(drawBrush, 0 - (playerLength - 1) / 2 + 2, 0 - (playerLength - 1) / 2 + 2, 1, 2);
-                */
+                
                 if (p.color == Color.Red)
                 {
                     e.Graphics.DrawImage(Properties.Resources.Player_1, 0 - playerWidth / 2, 0 - playerLength / 2, playerWidth, playerLength);
@@ -590,7 +640,7 @@ namespace soccerGame.Screens
                 e.Graphics.ResetTransform();
 
                 //shot meter drawing
-                if (p.actionKeyDown  && p.hasBall)
+                if (p.actionKeyDown  && p.hasBall && p.hasReset)
                 {
                     drawBrush.Color = Color.Orange;
                     e.Graphics.FillRectangle(drawBrush, p.x, p.y + playerLength + 10, Convert.ToInt16(playerWidth * ticksSinceShot / 30), 8);
@@ -612,20 +662,7 @@ namespace soccerGame.Screens
                     //rotate by the given angle for the player
                     e.Graphics.RotateTransform(a);
 
-                // draw the player in the middle of the rotated origin point
-                /*
-                e.Graphics.FillEllipse(drawBrush, 0 - playerWidth / 2, 0 - playerLength / 2, playerWidth, playerLength);
-
-                drawBrush.Color = Color.Beige;
-                e.Graphics.FillEllipse(drawBrush, 0 - (playerLength - 1) / 2, 0 - (playerLength - 1) / 2, playerLength - 1, playerLength - 1);
-
-                drawBrush.Color = Color.Brown;
-                e.Graphics.FillPie(drawBrush, 0 - (playerLength - 1) / 2, 0 - (playerLength - 1) / 2, playerLength - 1, playerLength - 1, 0, 180);
-
-                drawBrush.Color = Color.Black;
-                e.Graphics.FillRectangle(drawBrush, 0 - (playerLength - 1) / 2 + 7, 0 - (playerLength - 1) / 2 + 2, 1, 2);
-                e.Graphics.FillRectangle(drawBrush, 0 - (playerLength - 1) / 2 + 2, 0 - (playerLength - 1) / 2 + 2, 1, 2);
-                */
+                
                 e.Graphics.DrawImage(Properties.Resources.Goalie, 0 - playerWidth / 2, 0 - playerLength / 2, playerWidth, playerLength);
                 //reset to original origin point
                 e.Graphics.ResetTransform();               
@@ -635,11 +672,6 @@ namespace soccerGame.Screens
             //ball drawing
             drawBrush.Color = Color.White;
             drawPen.Color = Color.Black;
-
-            /*
-            e.Graphics.FillEllipse(drawBrush, b.x, b.y, ballSize, ballSize);
-            e.Graphics.DrawEllipse(drawPen, b.x, b.y, ballSize, ballSize);
-            */
 
             float ang = Convert.ToSingle(b.angle);
 
@@ -740,6 +772,11 @@ namespace soccerGame.Screens
         //ends game given a specific winner
         public void EndGame(string winner)
         {
+
+            //plays cheering
+            Form1.cheer.Stop();
+            Form1.cheer.Play();
+
             Output(winner + " WINS!");
             Refresh();
             Thread.Sleep(3000);
@@ -847,6 +884,21 @@ namespace soccerGame.Screens
             writer.WriteEndElement();
             writer.Close();
 
+        }
+
+        //random airhown logic
+        public void PlayAirhorn()
+        {   
+            //1 in 5000 chance of an airhorn blast
+            Random rnd = new Random();
+            int i = rnd.Next(0, 5001);
+
+            if (i == 5000)
+            {
+                Form1.airHorn.Stop();
+                Form1.airHorn.Volume = 1;
+                Form1.airHorn.Play();
+            }
         }
         #endregion
     }

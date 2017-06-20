@@ -36,7 +36,7 @@ namespace soccerGame
         }
 
         //checks for a collision with the ball
-        public bool checkCollision(Ball b)
+        public bool CheckCollision(Ball b)
         {
             Rectangle bRect = new Rectangle(b.x, b.y, b.size, b.size);
             Rectangle gRect = new Rectangle(x, y, length, width);

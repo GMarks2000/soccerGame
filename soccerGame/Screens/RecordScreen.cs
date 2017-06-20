@@ -18,7 +18,7 @@ namespace soccerGame.Screens
         List<string> blueScores = new List<string>();
 
         //will store how far up or down through the records has been scrolled
-        int index;
+        int index, redWins, blueWins;
 
         public RecordScreen()
         {
@@ -59,8 +59,34 @@ namespace soccerGame.Screens
 
             FillToThree();
 
-            index = 0;
+            index = redWins = blueWins = 0;
+
             DrawRecords();
+
+            //finds the number of red and blue wins based on scores
+            for (int i = 0; i < redScores.Count; i++)
+            {
+                if (Convert.ToInt16(redScores[i]) > Convert.ToInt16(blueScores[i]))
+                {
+                    redWins++;
+                }
+
+                else if (Convert.ToInt16(redScores[i]) < Convert.ToInt16(blueScores[i]))
+                {
+                    blueWins++;
+                }
+            }
+
+            //outputs win counts, factoring in plurality
+            if (redWins != 1)
+                redWinsLabel.Text = redWins.ToString() + " TOTAL WINS";
+            else
+                redWinsLabel.Text = redWins.ToString() + " TOTAL WIN";
+            if (blueWins != 1)
+                blueWinsLabel.Text = blueWins.ToString() + " TOTAL WINS";
+            else
+                blueWinsLabel.Text = blueWins.ToString() + " TOTAL WIN";
+
         }
 
         //fills record boxes as appropriate based on index value
