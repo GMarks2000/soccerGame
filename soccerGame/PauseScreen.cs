@@ -15,7 +15,12 @@ namespace soccerGame
         public PauseScreen()
         {
             InitializeComponent();
+
+            buttons.Add(resumeButton);
+            buttons.Add(quitButton);
         }
+
+        List<Button> buttons = new List<Button>();
 
         static PauseScreen pause;
         static public DialogResult result;
@@ -40,6 +45,18 @@ namespace soccerGame
         {
             result = DialogResult.Yes;
             this.Close();
+        }
+
+        //button tab order change
+        private void button_Enter(object sender, EventArgs e)
+        {
+            foreach (Button b in buttons)
+            {
+                b.BackColor = Color.DarkSlateGray;
+            }
+            Button current = (Button)sender;
+            current.BackColor = Color.Green;
+
         }
 
         //unpause on escape press

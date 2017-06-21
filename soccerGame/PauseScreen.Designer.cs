@@ -61,6 +61,7 @@
             this.resumeButton.Text = "RESUME";
             this.resumeButton.UseVisualStyleBackColor = false;
             this.resumeButton.Click += new System.EventHandler(this.resumeButton_Click);
+            this.resumeButton.Enter += new System.EventHandler(this.button_Enter);
             // 
             // quitButton
             // 
@@ -79,6 +80,7 @@
             this.quitButton.Text = "MENU";
             this.quitButton.UseVisualStyleBackColor = false;
             this.quitButton.Click += new System.EventHandler(this.quitButton_Click);
+            this.quitButton.Enter += new System.EventHandler(this.button_Enter);
             // 
             // PauseScreen
             // 

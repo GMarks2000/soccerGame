@@ -78,6 +78,7 @@
             this.playButton.Text = "PLAY";
             this.playButton.UseVisualStyleBackColor = false;
             this.playButton.Click += new System.EventHandler(this.playButton_Click_1);
+            this.playButton.Enter += new System.EventHandler(this.button_Enter);
             // 
             // manoLabel
             // 
@@ -120,6 +121,7 @@
             this.quitButton.Text = "QUIT";
             this.quitButton.UseVisualStyleBackColor = false;
             this.quitButton.Click += new System.EventHandler(this.quitButton_Click);
+            this.quitButton.Enter += new System.EventHandler(this.button_Enter);
             // 
             // recordsButton
             // 
@@ -138,6 +140,7 @@
             this.recordsButton.Text = "RECORDS";
             this.recordsButton.UseVisualStyleBackColor = false;
             this.recordsButton.Click += new System.EventHandler(this.recordsButton_Click);
+            this.recordsButton.Enter += new System.EventHandler(this.button_Enter);
             // 
             // MenuScreen
             // 

@@ -17,6 +17,8 @@ namespace soccerGame.Screens
         List<string> redScores = new List<string>();
         List<string> blueScores = new List<string>();
 
+        List<Button> buttons = new List<Button>();
+
         //will store how far up or down through the records has been scrolled
         int index, redWins, blueWins;
 
@@ -30,7 +32,23 @@ namespace soccerGame.Screens
            blueLabel.Parent = blueBox;
            blueLabel.Location = new Point(blueBox.Width / 2 - blueLabel.Width / 2, blueBox.Height / 2 - blueLabel.Height / 2);
 
-           OnStart();
+            OnStart();
+            buttons.Add(returnButton);
+            buttons.Add(upButton);
+            buttons.Add(downButton);
+
+        }
+
+        //button tab order change
+        private void button_Enter(object sender, EventArgs e)
+        {
+            foreach (Button b in buttons)
+            {
+                b.BackColor = Color.DarkSlateGray;
+            }
+            Button current = (Button)sender;
+            current.BackColor = Color.Green;
+
         }
 
         //fills the lists with the appropriate game records and initialises screen
@@ -131,6 +149,7 @@ namespace soccerGame.Screens
 
             form.Controls.Add(ms);
             ms.Location = new Point((form.Width - ms.Width) / 2, (form.Height - ms.Height) / 2);
+            ms.Focus();
         }
 
         //fills lists with zero-zero scores to minimally three spots

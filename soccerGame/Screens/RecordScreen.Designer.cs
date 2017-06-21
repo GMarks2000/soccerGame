@@ -188,6 +188,7 @@
             this.upButton.Text = "▲";
             this.upButton.UseVisualStyleBackColor = false;
             this.upButton.Click += new System.EventHandler(this.upButton_Click);
+            this.upButton.Enter += new System.EventHandler(this.button_Enter);
             // 
             // downButton
             // 
@@ -206,6 +207,7 @@
             this.downButton.Text = "▼";
             this.downButton.UseVisualStyleBackColor = false;
             this.downButton.Click += new System.EventHandler(this.downButton_Click);
+            this.downButton.Enter += new System.EventHandler(this.button_Enter);
             // 
             // returnButton
             // 
@@ -224,6 +226,7 @@
             this.returnButton.Text = "BACK";
             this.returnButton.UseVisualStyleBackColor = false;
             this.returnButton.Click += new System.EventHandler(this.returnButton_Click);
+            this.returnButton.Enter += new System.EventHandler(this.button_Enter);
             // 
             // redWinsLabel
             // 
@@ -231,7 +234,7 @@
             this.redWinsLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.redWinsLabel.Font = new System.Drawing.Font("Eras Bold ITC", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.redWinsLabel.ForeColor = System.Drawing.Color.White;
-            this.redWinsLabel.Location = new System.Drawing.Point(3, 285);
+            this.redWinsLabel.Location = new System.Drawing.Point(39, 285);
             this.redWinsLabel.Name = "redWinsLabel";
             this.redWinsLabel.Size = new System.Drawing.Size(276, 94);
             this.redWinsLabel.TabIndex = 17;
@@ -244,7 +247,7 @@
             this.blueWinsLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.blueWinsLabel.Font = new System.Drawing.Font("Eras Bold ITC", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.blueWinsLabel.ForeColor = System.Drawing.Color.White;
-            this.blueWinsLabel.Location = new System.Drawing.Point(967, 285);
+            this.blueWinsLabel.Location = new System.Drawing.Point(955, 285);
             this.blueWinsLabel.Name = "blueWinsLabel";
             this.blueWinsLabel.Size = new System.Drawing.Size(276, 94);
             this.blueWinsLabel.TabIndex = 18;

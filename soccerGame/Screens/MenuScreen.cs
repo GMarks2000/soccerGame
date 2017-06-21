@@ -22,8 +22,15 @@ namespace soccerGame.Screens
 
             manoLabel.Location = new Point(soccerBox.Width / 2 - soccerLabel.Width / 2, manoBox.Height / 2 - manoLabel.Height / 2);
             soccerLabel.Location = new Point(soccerBox.Width / 2 - soccerLabel.Width / 2, soccerBox.Height / 2 - soccerLabel.Height / 2);
+
+            buttons.Add(playButton);
+            buttons.Add(recordsButton);
+            buttons.Add(quitButton);
+
+
         }
 
+        List<Button> buttons = new List<Button>();
         //opens game screen
         private void playButton_Click_1(object sender, EventArgs e)
         {
@@ -59,5 +66,17 @@ namespace soccerGame.Screens
             rs.Location = new Point((f.Width - rs.Width) / 2, (f.Height - rs.Height) / 2);
             rs.Focus();
         }
+
+        //button tab order change
+        private void button_Enter(object sender, EventArgs e)
+        {
+            foreach (Button b in buttons)
+            {
+                b.BackColor = Color.DarkSlateGray;
+            }
+            Button current = (Button)sender;
+            current.BackColor = Color.Green;
+
+        }       
     }
 }

@@ -71,7 +71,7 @@ namespace soccerGame.Screens
             ballSize = 12;
             ticksSinceShot = 0;
             ticks = 0;
-            timeLeft = 300;
+            timeLeft = 30;
 
             //net and boundary variables-- adjust as necessary
             startX = 125;
@@ -490,6 +490,17 @@ namespace soccerGame.Screens
 
             b.CheckRotation();
 
+            //prevents stuck ball glitch
+            if (b.x + ballSize < startX + creaseWidth && b.y > creaseStartY && b.y + ballSize < creaseEndY && Convert.ToInt16(b.xSpeed) == 0 && Convert.ToInt16(b.ySpeed) == 0)
+            {
+                g1.hasBall = true;
+                b.isFree = false;
+            }
+            if (b.x > endX - creaseWidth && b.y > creaseStartY && b.y + ballSize < creaseEndY && b.xSpeed == 0 && b.ySpeed == 0)
+            {
+                g2.hasBall = true;
+                b.isFree = false;
+            }
             //randomly determines whether to play the airhorn sound on a given frame
             PlayAirhorn();
 
@@ -743,6 +754,7 @@ namespace soccerGame.Screens
                     form.Controls.Remove(this);
 
                     ms.Location = new Point((form.Width - ms.Width) / 2, (form.Height - ms.Height) / 2);
+                    ms.Focus();
                     break;
             }
         }
@@ -773,9 +785,9 @@ namespace soccerGame.Screens
         public void EndGame(string winner)
         {
 
-            //plays cheering
-            Form1.cheer.Stop();
-            Form1.cheer.Play();
+            //plays applause
+            Form1.applause.Stop();
+            Form1.applause.Play();
 
             Output(winner + " WINS!");
             Refresh();
@@ -791,6 +803,7 @@ namespace soccerGame.Screens
 
             form.Controls.Add(ms);
             ms.Location = new Point((form.Width - ms.Width) / 2, (form.Height - ms.Height) / 2);
+            ms.Focus();
         }
 
         //resets player and ball positions
